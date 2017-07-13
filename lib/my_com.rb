@@ -1,0 +1,2 @@
+module MyCom
+end
