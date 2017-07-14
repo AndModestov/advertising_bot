@@ -6,7 +6,8 @@ require_relative '../logger'
 
 
 class MyTarget::Publisher
-  MAIN_HOST = 'target-sandbox.my.com'
+  # MAIN_HOST = 'target-sandbox.my.com'
+  MAIN_HOST = 'target.my.com'
   MAIN_URL = "https://#{MAIN_HOST}/"
   USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36'
 
@@ -50,8 +51,7 @@ class MyTarget::Publisher
       "pads" => build_pads
     }.to_json
 
-    request_params = { method: :post, body: body, headers: headers }
-    result = Request.run url, request_params
+    result = Request.run url, { method: :post, body: body, headers: headers }
     Logger.debug 'CreatePad', result
     raise RequestError if result[:status] != 200
 
@@ -91,8 +91,7 @@ class MyTarget::Publisher
     }
     body = {}
 
-    request_params = { method: :get, body: body, headers: headers }
-    result = Request.run url, request_params
+    result = Request.run url, { method: :get, body: body, headers: headers }
     # Logger.debug 'get_token', result
 
     resp_headers = parse_headers(result[:headers])
@@ -121,8 +120,7 @@ class MyTarget::Publisher
       failure: 'https://account.my.com/login/'
     }
 
-    request_params = { method: :post, body: body, headers: headers }
-    result = Request.run url, request_params
+    result = Request.run url, { method: :post, body: body, headers: headers }
     # Logger.debug 'Login', result
     raise RequestError if result[:status] != 302
 
@@ -147,8 +145,7 @@ class MyTarget::Publisher
     }
     body = {}
 
-    request_params = { method: :get, body: body, headers: headers }
-    result = Request.run url, request_params
+    result = Request.run url, { method: :get, body: body, headers: headers }
     # Logger.debug 'get_sdcs_1', result
 
     url = result[:headers]['Location']
@@ -166,8 +163,7 @@ class MyTarget::Publisher
     }
     body = {}
 
-    request_params = { method: :get, body: body, headers: headers }
-    result = Request.run url, request_params
+    result = Request.run url, { method: :get, body: body, headers: headers }
     # Logger.debug 'get_sdcs_2', result
 
     resp_headers = parse_headers(result[:headers])
