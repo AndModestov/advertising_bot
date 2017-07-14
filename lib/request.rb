@@ -11,7 +11,7 @@ class Request
     request = Typhoeus::Request.new(
       url, method: method, headers: headers, body: body,
       ssl_verifypeer: false, ssl_verifyhost: 0, accept_encoding: "gzip",
-      timeout: 30, connecttimeout: 20, forbid_reuse: true
+      timeout: 60, connecttimeout: 40, forbid_reuse: true
     )
     response = request.run
     body = JSON.parse(response.body) rescue {}
