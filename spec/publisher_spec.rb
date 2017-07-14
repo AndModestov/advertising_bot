@@ -23,10 +23,18 @@ describe 'Publisher Сlass' do
         ]
       }
     end
+    let(:single_header) do
+      { "Set-Cookie" => "ssdc=testtwo; expires=Sun, 15 Oct 2017 10:07:45 GMT; path=/; domain=.auth-ac.my.com; Secure; HttpOnly" }
+    end
 
     it 'parses all headers' do
       parsed_headers = publisher.send('parse_headers', headers)
-      expect(parsed_headers).to eq({"mc"=>"testone", "ssdc"=>"testtwo", "mrcu"=>"testthree"})
+      expect(parsed_headers).to eq({ "mc"=>"testone", "ssdc"=>"testtwo", "mrcu"=>"testthree" })
+    end
+
+    it 'parses single header' do
+      parsed_headers = publisher.send('parse_headers', single_header)
+      expect(parsed_headers).to eq({ "ssdc"=>"testtwo" })
     end
   end
 
@@ -35,7 +43,7 @@ describe 'Publisher Сlass' do
 
     it 'parses cookie string' do
       parsed_cookie = publisher.send('parse_cookie_string', cookies_str)
-      expect(parsed_cookie).to eq({"mc"=>"testone"})
+      expect(parsed_cookie).to eq({ "mc"=>"testone" })
     end
   end
 
@@ -46,7 +54,8 @@ describe 'Publisher Сlass' do
 
     it 'adds new cookies to @cookies' do
       parsed_headers = publisher.send('add_cookies', cookies_hash)
-      expect(publisher.cookies).to eq({"mc"=>"testone", "ssdc"=>"testtwo", "mrcu"=>"testthree", "cookie_str"=>"mc=testone; ssdc=testtwo; mrcu=testthree; "})
+      expect(publisher.cookies).to eq({ "mc"=>"testone", "ssdc"=>"testtwo", "mrcu"=>"testthree",
+                                        "cookie_str"=>"mc=testone; ssdc=testtwo; mrcu=testthree; " })
     end
   end
 end

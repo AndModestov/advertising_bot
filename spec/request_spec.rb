@@ -7,10 +7,8 @@ describe 'Request Сlass' do
 
   describe 'build_request method' do
     let!(:expected_params) do
-      {
-        :method=>:get, :headers=>{}, :body=>{}, :ssl_verifypeer=>false, :ssl_verifyhost=>0,
-        :accept_encoding=>"gzip", :timeout=>60, :connecttimeout=>40, :forbid_reuse=>true
-      }
+      { :method=>:get, :headers=>{}, :body=>{}, :ssl_verifypeer=>false, :ssl_verifyhost=>0,
+        :accept_encoding=>"gzip", :timeout=>60, :connecttimeout=>40, :forbid_reuse=>true }
     end
 
     it 'builds Typhoeus request with correct params' do

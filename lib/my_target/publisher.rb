@@ -61,23 +61,6 @@ class MyTarget::Publisher
 
   private
 
-  def build_pads
-    (1..3).collect do |i|
-      {
-        "description" => "AwesomePlacement-#{i}",
-        "format_id" => 6124,
-        "filters" => {
-          "deny_mobile_android_category" => [],"deny_mobile_category" =>[],
-          "deny_topics" => [],"deny_pad_url" => [],"deny_mobile_apps" => []
-        },
-        "js_tag" => false,
-        "shows_period" => "day",
-        "shows_limit" => nil,
-        "shows_interval" => nil
-      }
-    end
-  end
-
   def get_token
     url = MAIN_URL
     headers = {
@@ -171,6 +154,23 @@ class MyTarget::Publisher
     Logger.debug 'get_sdcs', @cookies
   end
 
+  def build_pads
+    (1..3).collect do |i|
+      {
+        "description" => "AwesomePlacement-#{i}",
+        "format_id" => 6124,
+        "filters" => {
+          "deny_mobile_android_category" => [],"deny_mobile_category" =>[],
+          "deny_topics" => [],"deny_pad_url" => [],"deny_mobile_apps" => []
+        },
+        "js_tag" => false,
+        "shows_period" => "day",
+        "shows_limit" => nil,
+        "shows_interval" => nil
+      }
+    end
+  end
+
   def add_cookies data={}
     @cookies.merge! data
     cookie_str = ''
@@ -192,8 +192,7 @@ class MyTarget::Publisher
   end
 
   def parse_cookie_string cookie_str
-    s_cookie = cookie_str.split(/=|;/)
-
-    { s_cookie[0] => s_cookie[1] }
+    splited_cookie = cookie_str.split(/=|;/)
+    { splited_cookie[0] => splited_cookie[1] }
   end
 end
