@@ -1,3 +1,2 @@
-module MyTarget
-  
+module MyTarget  
 end
